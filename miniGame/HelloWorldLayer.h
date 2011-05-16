@@ -11,15 +11,18 @@
 #import "cocos2d.h"
 
 // HelloWorldLayer
-@interface HelloWorldLayer : CCLayer
+@interface HelloWorldLayer : CCLayerColor
 {
     CGPoint singleTapLocation;
+    CGPoint chemokineReleaseCoords;
+    BOOL chemokinesReleased;
 }
 
 // returns a CCScene that contains the HelloWorldLayer as the only child
 +(CCScene *) scene;
 
 @property (nonatomic, retain) NSMutableSet *sprites;
+@property (nonatomic, retain) CCSprite *CD8;
 @property (nonatomic, retain) CCSpriteBatchNode *spriteSheet;
 
 @end

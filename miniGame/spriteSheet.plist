@@ -5,62 +5,62 @@
 	<key>frames</key>
 	<dict>
 		
-		<key>GreenBubble.png</key>
+		<key>TCR_GCell.png</key>
 		<dict>
 			<key>aliases</key>
 			<array/>
 			<key>spriteColorRect</key>
-			<string>{{0, 0}, {45, 45}}</string>
+			<string>{{2, 2}, {42, 42}}</string>
 			<key>spriteOffset</key>
 			<string>{0, -0}</string>
 			<key>spriteSize</key>
-			<string>{45, 45}</string>
+			<string>{42, 42}</string>
 			<key>spriteSourceSize</key>
-			<string>{45, 45}</string>
+			<string>{46, 46}</string>
 			<key>spriteTrimmed</key>
 			<true/>
 			<key>textureRect</key>
-			<string>{{49, 2}, {45, 45}}</string>
+			<string>{{2, 2}, {42, 42}}</string>
 			<key>textureRotated</key>
 			<false/>
 		</dict>
 		
-		<key>RedBubble.png</key>
+		<key>TCR_RCell.png</key>
 		<dict>
 			<key>aliases</key>
 			<array/>
 			<key>spriteColorRect</key>
-			<string>{{0, 0}, {45, 45}}</string>
+			<string>{{2, 2}, {42, 42}}</string>
 			<key>spriteOffset</key>
 			<string>{0, -0}</string>
 			<key>spriteSize</key>
-			<string>{45, 45}</string>
+			<string>{42, 42}</string>
 			<key>spriteSourceSize</key>
-			<string>{45, 45}</string>
+			<string>{46, 46}</string>
 			<key>spriteTrimmed</key>
 			<true/>
 			<key>textureRect</key>
-			<string>{{2, 49}, {45, 45}}</string>
+			<string>{{2, 46}, {42, 42}}</string>
 			<key>textureRotated</key>
 			<false/>
 		</dict>
 		
-		<key>YellowBubble.png</key>
+		<key>TCR_YCell.png</key>
 		<dict>
 			<key>aliases</key>
 			<array/>
 			<key>spriteColorRect</key>
-			<string>{{0, 0}, {45, 45}}</string>
+			<string>{{2, 2}, {42, 42}}</string>
 			<key>spriteOffset</key>
 			<string>{0, -0}</string>
 			<key>spriteSize</key>
-			<string>{45, 45}</string>
+			<string>{42, 42}</string>
 			<key>spriteSourceSize</key>
-			<string>{45, 45}</string>
+			<string>{46, 46}</string>
 			<key>spriteTrimmed</key>
 			<true/>
 			<key>textureRect</key>
-			<string>{{2, 2}, {45, 45}}</string>
+			<string>{{46, 2}, {42, 42}}</string>
 			<key>textureRotated</key>
 			<false/>
 		</dict>
