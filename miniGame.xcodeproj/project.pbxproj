@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3563295B138312F90057A57B /* Times32.png in Resources */ = {isa = PBXBuildFile; fileRef = 35632959138312F80057A57B /* Times32.png */; };
+		3563295C138312F90057A57B /* Times32.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 3563295A138312F80057A57B /* Times32.fnt */; };
 		35CCE7CB137C244300F80E6B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35CCE7CA137C244300F80E6B /* QuartzCore.framework */; };
 		35CCE7CD137C244400F80E6B /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35CCE7CC137C244400F80E6B /* OpenGLES.framework */; };
 		35CCE7CF137C244400F80E6B /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35CCE7CE137C244400F80E6B /* OpenAL.framework */; };
@@ -127,6 +129,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		35632959138312F80057A57B /* Times32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Times32.png; sourceTree = "<group>"; };
+		3563295A138312F80057A57B /* Times32.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Times32.fnt; sourceTree = "<group>"; };
 		35CCE7C6137C244300F80E6B /* miniGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = miniGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35CCE7CA137C244300F80E6B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		35CCE7CC137C244400F80E6B /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -445,6 +449,8 @@
 		35CCE7DB137C244400F80E6B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				35632959138312F80057A57B /* Times32.png */,
+				3563295A138312F80057A57B /* Times32.fnt */,
 				35CCE95A137C843700F80E6B /* spriteSheet.plist */,
 				35CCE958137C83D300F80E6B /* spriteSheet.png */,
 				35CCE7DC137C244400F80E6B /* Default.png */,
@@ -769,6 +775,8 @@
 				35CCE7EE137C244400F80E6B /* iTunesArtwork in Resources */,
 				35CCE959137C83D300F80E6B /* spriteSheet.png in Resources */,
 				35CCE95B137C843700F80E6B /* spriteSheet.plist in Resources */,
+				3563295B138312F90057A57B /* Times32.png in Resources */,
+				3563295C138312F90057A57B /* Times32.fnt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

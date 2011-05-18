@@ -15,6 +15,18 @@
 #define CELL_RADIUS 21
 #define V 0.2/100
 
+#define OFFSET 25
+
+#define ARC4RANDOM_MAX      0x100000000
+static inline double randf(){
+    return (double)arc4random() / ARC4RANDOM_MAX;
+}
+
+static inline double lerp(double a, double b, double t)
+{
+    return a + (b - a) * t;
+}
+
 // HelloWorldLayer implementation
 @implementation HelloWorldLayer
 @synthesize sprites, spriteSheet, CD8;
@@ -97,6 +109,28 @@
         [self setupSprites];
         chemokinesReleased = NO;
         
+        //setup score labels
+        CGSize s = [[CCDirector sharedDirector] winSize];
+        
+        totalLabel = [[CCLabelBMFont labelWithString:@"0" fntFile:@"Times32.fnt"] retain];
+        totalLabel.position = ccp((s.width - 32),(s.height - 32));
+        totalLabel.color = ccBLACK;
+        [self addChild:totalLabel];
+        
+        CCLabelBMFont *segment = [CCLabelBMFont labelWithString:@":" fntFile:@"Times32.fnt"];
+        segment.position = ccp((s.width - 32*(2)),(s.height - 29));
+        segment.color = ccBLACK;
+        [self addChild:segment];
+        
+        infectedLabel = [[CCLabelBMFont labelWithString:@"0" fntFile:@"Times32.fnt"] retain];
+        infectedLabel.position = ccp((s.width - 32*(3)),(s.height - 32));
+        infectedLabel.color = ccRED;
+        [self addChild:infectedLabel];
+        
+        
+        //FOR TESTING
+        infected = 0;
+        
         // schedule a repeating callback on every frame
         [self schedule:@selector(nextFrame:)];
         
@@ -113,6 +147,15 @@
 
 - (void) nextFrame:(ccTime)dt {
     //cell animations
+    //FOR EACH CELL
+        //find vector from current position to dst position
+        //normalize
+        //set constant velocity
+    
+        //update current position
+    //END
+    
+    //check model update infected counts
 }
 
 - (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
@@ -132,7 +175,7 @@
         default:
             //one tap behavior
             singleTapLocation = location;
-            [self performSelector:@selector(singleTap) withObject:nil afterDelay:.15];
+            [self performSelector:@selector(singleTap) withObject:nil afterDelay:0.0];
     }
     
     
@@ -140,6 +183,10 @@
 
 -(void)singleTap
 {
+    //FOR TESTING
+    infected++;
+    [infectedLabel setString:[NSString stringWithFormat:@"%i", infected]];
+    
     
     BOOL objectFound = NO;
     for (id object in sprites) {
@@ -151,11 +198,12 @@
             float time = len * V;
             if (len != 0){
                 CGPoint target;
-                target.x = current.position.x + (CD8.position.x - current.position.x)*2*CELL_RADIUS/len;
-                target.y = current.position.y + (CD8.position.y - current.position.y)*2*CELL_RADIUS/len;
+                target.x = round(current.position.x + (CD8.position.x - current.position.x)*1*CELL_RADIUS/len);
+                target.y = round(current.position.y + (CD8.position.y - current.position.y)*1*CELL_RADIUS/len);
                 CCSequence *strike = [CCSequence actions: 
                                         [CCMoveTo actionWithDuration:time position:target],
                                         [CCCallBlock actionWithBlock:^{
+                                                //if infected
                                                 [self performSelector:@selector(induceCellDeath:) withObject:current afterDelay:.1];
                                             }],
                                       nil];
@@ -216,11 +264,123 @@
 -(void)chemokineSignal
 {
     if (!chemokinesReleased){
+        /*
         CCSprite *cell = [CCSprite spriteWithSpriteFrameName:@"TCR_YCell.png"];
         cell.position = chemokineReleaseCoords;
         [sprites addObject:cell];
         [spriteSheet addChild:cell];
+        */
         chemokinesReleased = YES;
+        
+        //generate helper t-cell coordinates
+        CGPoint hLCoords;
+        CGPoint hRCoords;
+        
+        CGSize s = [[CCDirector sharedDirector] winSize];
+        if (chemokineReleaseCoords.x < s.width/2){
+            hLCoords.x = -OFFSET;
+            hRCoords.x = round(lerp(0.0, s.width/2, randf()));
+        }
+        else{
+            hLCoords.x = s.width + OFFSET;
+            hRCoords.x = round(lerp(s.width/2, s.width, randf()));
+        }
+        
+        if (chemokineReleaseCoords.y < s.height/2){
+            hLCoords.y = round(lerp(0.0, s.height/2, randf()));
+            hRCoords.y = -OFFSET;
+        }
+        else{
+            hLCoords.y = round(lerp(s.height/2, s.height, randf()));
+            hRCoords.y = s.height + OFFSET;
+        }
+        
+        //cell initialized offscreen
+        CCSprite *hLCell = [CCSprite spriteWithSpriteFrameName:@"TCR_GCell.png"];
+        hLCell.position = hLCoords;
+        [spriteSheet addChild:hLCell];
+        
+        CCSprite *hRCell = [CCSprite spriteWithSpriteFrameName:@"TCR_GCell.png"];
+        hRCell.position = hRCoords;
+        [spriteSheet addChild:hRCell];
+         
+        
+        
+        NSArray *tmp = [sprites allObjects];
+        
+        
+        //NSRange rightRange;
+        //rightRange.location = [tmp count]/2;
+        //rightRange.length = [tmp count] - ([tmp count]/2);
+        //NSArray *right = [tmp subarrayWithRange:rightRange];
+        //NSArray *rightActions;
+        
+        CGPoint current = hLCoords;
+        
+        float time;
+        double len;
+        
+        // cell traverses cloud
+        NSRange leftRange;
+        leftRange.location = 0;
+        leftRange.length = [tmp count]/2;
+        NSArray *left = [tmp subarrayWithRange:leftRange];
+        NSMutableArray *leftActions = [[NSMutableArray alloc] initWithCapacity:1];
+        for (id obj in left){
+            CCSprite *next = obj;
+            //get target point and speed
+            len = sqrt(((current.x - next.position.x) * (current.x - next.position.x)) + ((current.y - next.position.y) * (current.y - next.position.y)));
+            time = len * V;
+            CGPoint target;
+            target.x = round(next.position.x + (current.x - next.position.x)*1*CELL_RADIUS/len);
+            target.y = round(next.position.y + (current.y - next.position.y)*1*CELL_RADIUS/len);
+            [leftActions addObject:[CCMoveTo actionWithDuration:time position:target]];
+            [leftActions addObject:[CCCallBlock actionWithBlock:^{
+                                        //if infected
+                                        [self performSelector:@selector(induceCellDeath:) withObject:next afterDelay:.1];
+                                    }]];
+            [leftActions addObject:[CCDelayTime actionWithDuration:.4]];
+            current = next.position;
+        }
+        // cell leaves screen 
+        len = sqrt(((current.x - hRCoords.x) * (current.x - hRCoords.x)) + ((current.y - hRCoords.y) * (current.y - hRCoords.y)));
+        time = len * V;
+        [leftActions addObject:[CCMoveTo actionWithDuration:time position:hRCoords]];
+        
+        // cell traverses cloud
+        current = hRCoords;
+        NSRange rightRange;
+        rightRange.location = [tmp count]/2;
+        rightRange.length = [tmp count] - ([tmp count]/2);
+        NSArray *right = [tmp subarrayWithRange:rightRange];
+        NSMutableArray *rightActions = [[NSMutableArray alloc] initWithCapacity:1];
+        for (id obj in right){
+            CCSprite *next = obj;
+            //get target point and speed
+            len = sqrt(((current.x - next.position.x) * (current.x - next.position.x)) + ((current.y - next.position.y) * (current.y - next.position.y)));
+            time = len * V;
+            CGPoint target;
+            target.x = round(next.position.x + (current.x - next.position.x)*1*CELL_RADIUS/len);
+            target.y = round(next.position.y + (current.y - next.position.y)*1*CELL_RADIUS/len);
+            [rightActions addObject:[CCMoveTo actionWithDuration:time position:target]];
+            [rightActions addObject:[CCCallBlock actionWithBlock:^{
+                                        //if infected
+                                        [self performSelector:@selector(induceCellDeath:) withObject:next afterDelay:.1];
+                                    }]];
+            [rightActions addObject:[CCDelayTime actionWithDuration:.5]];
+            current = next.position;
+        }
+        // cell leaves screen 
+        len = sqrt(((current.x - hLCoords.x) * (current.x - hLCoords.x)) + ((current.y - hLCoords.y) * (current.y - hLCoords.y)));
+        time = len * V;
+        [rightActions addObject:[CCMoveTo actionWithDuration:time position:hLCoords]];
+        
+        
+        [hLCell runAction:[CCSequence actionsWithArray:leftActions]];
+        [hRCell runAction:[CCSequence actionsWithArray:rightActions]];
+        [leftActions release];
+        [rightActions release];
+        
     }
 }
 
@@ -234,6 +394,7 @@
 	[sprites release];
     [spriteSheet release];
     [CD8 release];
+    [infectedLabel release];
 	// don't forget to call "super dealloc"
 	[super dealloc];
 }

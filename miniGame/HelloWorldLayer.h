@@ -16,6 +16,9 @@
     CGPoint singleTapLocation;
     CGPoint chemokineReleaseCoords;
     BOOL chemokinesReleased;
+    int infected;
+    CCLabelBMFont *infectedLabel;
+    CCLabelAtlas *totalLabel;
 }
 
 // returns a CCScene that contains the HelloWorldLayer as the only child
