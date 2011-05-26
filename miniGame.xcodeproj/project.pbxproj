@@ -126,6 +126,10 @@
 		35CCE92D137C244600F80E6B /* HelloWorldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CCE92C137C244600F80E6B /* HelloWorldLayer.m */; };
 		35CCE959137C83D300F80E6B /* spriteSheet.png in Resources */ = {isa = PBXBuildFile; fileRef = 35CCE958137C83D300F80E6B /* spriteSheet.png */; };
 		35CCE95B137C843700F80E6B /* spriteSheet.plist in Resources */ = {isa = PBXBuildFile; fileRef = 35CCE95A137C843700F80E6B /* spriteSheet.plist */; };
+		35DEEA5D138464340071F5AB /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DEEA5A138464340071F5AB /* Cell.m */; };
+		35DEEA5E138464340071F5AB /* TC_Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DEEA5C138464340071F5AB /* TC_Game.m */; };
+		35DEEA67138488CD0071F5AB /* win.png in Resources */ = {isa = PBXBuildFile; fileRef = 35DEEA65138488CD0071F5AB /* win.png */; };
+		35DEEA68138488CD0071F5AB /* lose.png in Resources */ = {isa = PBXBuildFile; fileRef = 35DEEA66138488CD0071F5AB /* lose.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -368,6 +372,12 @@
 		35CCE92E137C244600F80E6B /* GameConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameConfig.h; sourceTree = "<group>"; };
 		35CCE958137C83D300F80E6B /* spriteSheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spriteSheet.png; sourceTree = "<group>"; };
 		35CCE95A137C843700F80E6B /* spriteSheet.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = spriteSheet.plist; sourceTree = "<group>"; };
+		35DEEA59138464340071F5AB /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
+		35DEEA5A138464340071F5AB /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
+		35DEEA5B138464340071F5AB /* TC_Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TC_Game.h; sourceTree = "<group>"; };
+		35DEEA5C138464340071F5AB /* TC_Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TC_Game.m; sourceTree = "<group>"; };
+		35DEEA65138488CD0071F5AB /* win.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = win.png; sourceTree = "<group>"; };
+		35DEEA66138488CD0071F5AB /* lose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lose.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -435,6 +445,7 @@
 				35CCE92B137C244600F80E6B /* HelloWorldLayer.h */,
 				35CCE92C137C244600F80E6B /* HelloWorldLayer.m */,
 				35CCE92E137C244600F80E6B /* GameConfig.h */,
+				35DEEA58138464340071F5AB /* Model */,
 				35CCE7DB137C244400F80E6B /* Resources */,
 				35CCE7EF137C244400F80E6B /* cocos2d */,
 				35CCE8E1137C244500F80E6B /* CocosDenshion */,
@@ -449,6 +460,8 @@
 		35CCE7DB137C244400F80E6B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				35DEEA65138488CD0071F5AB /* win.png */,
+				35DEEA66138488CD0071F5AB /* lose.png */,
 				35632959138312F80057A57B /* Times32.png */,
 				3563295A138312F80057A57B /* Times32.fnt */,
 				35CCE95A137C843700F80E6B /* spriteSheet.plist */,
@@ -714,6 +727,17 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		35DEEA58138464340071F5AB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				35DEEA59138464340071F5AB /* Cell.h */,
+				35DEEA5A138464340071F5AB /* Cell.m */,
+				35DEEA5B138464340071F5AB /* TC_Game.h */,
+				35DEEA5C138464340071F5AB /* TC_Game.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -777,6 +801,8 @@
 				35CCE95B137C843700F80E6B /* spriteSheet.plist in Resources */,
 				3563295B138312F90057A57B /* Times32.png in Resources */,
 				3563295C138312F90057A57B /* Times32.fnt in Resources */,
+				35DEEA67138488CD0071F5AB /* win.png in Resources */,
+				35DEEA68138488CD0071F5AB /* lose.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -885,6 +911,8 @@
 				35CCE927137C244600F80E6B /* AppDelegate.m in Sources */,
 				35CCE92A137C244600F80E6B /* RootViewController.m in Sources */,
 				35CCE92D137C244600F80E6B /* HelloWorldLayer.m in Sources */,
+				35DEEA5D138464340071F5AB /* Cell.m in Sources */,
+				35DEEA5E138464340071F5AB /* TC_Game.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
