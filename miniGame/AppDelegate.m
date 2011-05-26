@@ -10,7 +10,7 @@
 
 #import "AppDelegate.h"
 #import "GameConfig.h"
-#import "HelloWorldLayer.h"
+#import "TCCollisionLayer.h"
 #import "RootViewController.h"
 
 @implementation AppDelegate
@@ -113,7 +113,7 @@
     [window setUserInteractionEnabled:YES];
     
 	// Run the intro Scene
-	[[CCDirector sharedDirector] runWithScene: [HelloWorldLayer scene]];
+	[[CCDirector sharedDirector] runWithScene: [TCCollisionLayer scene]];
 }
 
 

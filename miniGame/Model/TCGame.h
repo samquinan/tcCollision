@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import <math.h>
-#import "Cell.h"
+#import "TCCell.h"
 
 #define NUM_INIT 50 // temp value, can change later
 #define INFECTED_INIT 3 // temp, can add for different levels etc...
@@ -19,7 +19,7 @@
 #define CK_RAD 90 // temp
 
 
-@interface TC_Game : NSObject {
+@interface TCGame : NSObject {
     
     
     NSMutableArray *cells;
@@ -29,12 +29,12 @@
     
 }
 
-- (void) kill_cell: (Cell *) cell;
+- (void) kill_cell: (TCCell *) cell;
 // update remaining
 // release cell
 // if infected subtract from num_infected
 
-- (void) spread_infection: (Cell *) cell;
+- (void) spread_infection: (TCCell *) cell;
 
 
 

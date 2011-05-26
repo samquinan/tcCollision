@@ -6,10 +6,10 @@
 //  Copyright 2011 University of Chicago. All rights reserved.
 //
 
-#import "TC_Game.h"
+#import "TCGame.h"
 
 
-@implementation TC_Game
+@implementation TCGame
 
 @synthesize cells, num_infected, num_remaining, cur_infected;
 
@@ -29,7 +29,7 @@
     
     // populate the array with cells
     for (int i = 0; i<NUM_INIT; i++) {
-        Cell *cell = [[Cell alloc] init];
+        TCCell *cell = [[TCCell alloc] init];
         [self.cells addObject:cell];
     }
     
@@ -42,7 +42,7 @@
     // to make sure it doesn't overlap ...
     
     for (int i = 0; i<NUM_INIT; i++) {
-        Cell *current = [self.cells objectAtIndex:i];
+        TCCell *current = [self.cells objectAtIndex:i];
         int xpos = arc4random()%X_DIM;
         int ypos = arc4random()%Y_DIM;
         current.bind_pos = ccp(xpos, ypos);
@@ -70,7 +70,7 @@
     
     while (j < self.num_infected) {
         
-        Cell * current = [self.cells objectAtIndex:arc4random()%self.num_remaining];
+        TCCell * current = [self.cells objectAtIndex:arc4random()%self.num_remaining];
         
         if ( !(current.infected)) {
             current.infected = YES;
@@ -92,7 +92,7 @@
     NSMutableArray *near_cells = [[NSMutableArray alloc] init ];
     
     
-    for (Cell *cell in self.cells)
+    for (TCCell *cell in self.cells)
     {
         float distance;
         float x = p.x - cell.bind_pos.x;
@@ -108,7 +108,7 @@
     return near_cells;
 }
 
-- (void) kill_cell:(Cell *)cell
+- (void) kill_cell:(TCCell *)cell
 {
     
     if ([self.cells containsObject:cell]){
@@ -126,13 +126,13 @@
 }
 
 
--(void) spread_infection: (Cell *) cell
+-(void) spread_infection: (TCCell *) cell
 {
     NSMutableArray *near_cells = [self cells_near_point:cell.bind_pos];
     
     cell.emitted = YES;
     
-    for (Cell *cell_in in near_cells) {
+    for (TCCell *cell_in in near_cells) {
         if (!cell_in.infected) {
             if ( (arc4random()%3) <= cell_in.infection_prob  ) {
                 cell_in.infected = YES;

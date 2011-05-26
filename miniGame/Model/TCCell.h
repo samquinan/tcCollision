@@ -13,7 +13,7 @@
 #define RADIUS 22// just a placeholder value can be changed later
 
 
-@interface Cell : NSObject {
+@interface TCCell : NSObject {
     
     
     BOOL infected;
@@ -26,7 +26,7 @@
     // possibly need to add a var to tell whether a cell is dead and should not be displayed
     
 }
--(float) distance_from_cell: (Cell *) cell;
+-(float) distance_from_cell: (TCCell *) cell;
 // calculate the distance between two cells
 
 - (void) emit_virions: (NSMutableArray *) cells;

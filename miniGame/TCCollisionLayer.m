@@ -8,10 +8,10 @@
 
 
 // Import the interfaces
-#import "HelloWorldLayer.h"
+#import "TCCollisionLayer.h"
 #import "CCTouchDispatcher.h"
-#import "TC_Game.h"
-#import "Cell.h"
+#import "TCGame.h"
+#import "TCCell.h"
 
 #define TOUCH_THRESHOLD 20
 #define CELL_RADIUS 21
@@ -31,7 +31,7 @@ static inline double lerp(double a, double b, double t)
 }
 
 // HelloWorldLayer implementation
-@implementation HelloWorldLayer
+@implementation TCCollisionLayer
 @synthesize sprites, objects, spriteSheet, CD8;
 
 +(CCScene *) scene
@@ -40,7 +40,7 @@ static inline double lerp(double a, double b, double t)
 	CCScene *scene = [CCScene node];
 	
 	// 'layer' is an autorelease object.
-	HelloWorldLayer *layer = [HelloWorldLayer node];
+	TCCollisionLayer *layer = [TCCollisionLayer node];
 	
 	// add layer as a child to scene
 	[scene addChild: layer];
@@ -60,50 +60,14 @@ static inline double lerp(double a, double b, double t)
     [self addChild:spriteSheet];
     
     for (id obj in game.cells){
-        Cell *next = obj; 
+        TCCell *next = obj; 
         CCSprite *cellSprite = [CCSprite spriteWithSpriteFrameName:@"TCR_YCell.png"];
         cellSprite.position = next.bind_pos;
         [spriteSheet addChild: cellSprite];
         [sprites addObject:cellSprite];
         [objects addObject:next];
     }
-    /*
-    //initialize regular cells
-    CCSprite *cell1 = [CCSprite spriteWithSpriteFrameName:@"TCR_YCell.png"];
-    cell1.position = ccp( 100, 100 );
-    [sprites addObject: cell1];
-    [spriteSheet addChild: cell1];
-    
-    CCSprite *cell2 = [CCSprite spriteWithSpriteFrameName:@"TCR_YCell.png"];
-    cell2.position = ccp( 146, 111 );
-    [sprites addObject: cell2];
-    [spriteSheet addChild: cell2];
-    
-    CCSprite *cell3 = [CCSprite spriteWithSpriteFrameName:@"TCR_YCell.png"];
-    cell3.position = ccp( 133, 65 );
-    [sprites addObject: cell3];
-    [spriteSheet addChild: cell3];
-    
-    CCSprite *cell4 = [CCSprite spriteWithSpriteFrameName:@"TCR_YCell.png"];
-    cell4.position = ccp( 64, 132 );
-    [sprites addObject: cell4];
-    [spriteSheet addChild: cell4];
-    
-    CCSprite *cell5 = [CCSprite spriteWithSpriteFrameName:@"TCR_YCell.png"];
-    cell5.position = ccp( 67, 65 );
-    [sprites addObject: cell5];
-    [spriteSheet addChild: cell5];
-    
-    CCSprite *cell6 = [CCSprite spriteWithSpriteFrameName:@"TCR_YCell.png"];
-    cell6.position = ccp( 113, 146 );
-    [sprites addObject: cell6];
-    [spriteSheet addChild: cell6];
-    
-    CCSprite *cell7 = [CCSprite spriteWithSpriteFrameName:@"TCR_YCell.png"];
-    cell7.position = ccp( 32, 97 );
-    [sprites addObject: cell7];
-    [spriteSheet addChild: cell7];
-     */
+
     CGSize s = [[CCDirector sharedDirector] winSize];
     //init main char
     CD8 = [CCSprite spriteWithSpriteFrameName:@"TCR_GCell.png"];
@@ -120,7 +84,7 @@ static inline double lerp(double a, double b, double t)
 	if( (self=[super initWithColor:ccc4(189, 227, 219, 255)])) {
 		
         //initialize game model
-        game = [[TC_Game alloc] init];
+        game = [[TCGame alloc] init];
         
         [self setupSprites];
         chemokinesReleased = NO;
@@ -141,10 +105,7 @@ static inline double lerp(double a, double b, double t)
         infectedLabel.position = ccp((s.width - 32*(3)),(s.height - 32));
         infectedLabel.color = ccRED;
         [self addChild:infectedLabel];
-        
-        // to track whether to update or not
-        //infected = game.num_infected;
-        
+                
         // schedule a repeating callback on every frame
         [self schedule:@selector(nextFrame:)];
         
@@ -190,7 +151,7 @@ static inline double lerp(double a, double b, double t)
     
     NSArray *updateList = game.cur_infected;
     for (id obj in updateList){
-        Cell *current = obj;
+        TCCell *current = obj;
         current.replication_time -= delta;
         if (current.replication_time <= 0){
             [game spread_infection:current];
@@ -227,11 +188,10 @@ static inline double lerp(double a, double b, double t)
 
 -(void)singleTap
 {
-    //FOR TESTING
     BOOL objectFound = NO;
     for (id object in sprites) {
         CCSprite *current = object;
-        Cell *model = [objects objectAtIndex:[sprites indexOfObject:object]];
+        TCCell *model = [objects objectAtIndex:[sprites indexOfObject:object]];
         if ( (abs(current.position.x - singleTapLocation.x) < TOUCH_THRESHOLD) && (abs(current.position.y - singleTapLocation.y) < TOUCH_THRESHOLD)){
             objectFound = YES;
             //create normalized vector to find target location for CD8 
@@ -273,7 +233,7 @@ static inline double lerp(double a, double b, double t)
 -(void)induceCellDeath:(CCSprite *)cell
 {
     if ([sprites containsObject:cell]){
-        Cell *model = [objects objectAtIndex:[sprites indexOfObject:cell]];
+        TCCell *model = [objects objectAtIndex:[sprites indexOfObject:cell]];
     
         //create blinking animation
         NSMutableArray *blinkAnimFrames = [NSMutableArray array];
@@ -314,12 +274,7 @@ static inline double lerp(double a, double b, double t)
 -(void)chemokineSignal
 {
     if (!chemokinesReleased){
-        /*
-        CCSprite *cell = [CCSprite spriteWithSpriteFrameName:@"TCR_YCell.png"];
-        cell.position = chemokineReleaseCoords;
-        [sprites addObject:cell];
-        [spriteSheet addChild:cell];
-        */
+
         chemokinesReleased = YES;
         
         //generate helper t-cell coordinates
@@ -369,7 +324,7 @@ static inline double lerp(double a, double b, double t)
         NSArray *left = [tmp subarrayWithRange:leftRange];
         NSMutableArray *leftActions = [[NSMutableArray alloc] initWithCapacity:1];
         for (id obj in left){
-            Cell *model = obj;
+            TCCell *model = obj;
             CCSprite *next = [sprites objectAtIndex:[objects indexOfObject:model]];
             //get target point and speed
             len = sqrt(((current.x - next.position.x) * (current.x - next.position.x)) + ((current.y - next.position.y) * (current.y - next.position.y)));
@@ -399,7 +354,7 @@ static inline double lerp(double a, double b, double t)
         NSArray *right = [tmp subarrayWithRange:rightRange];
         NSMutableArray *rightActions = [[NSMutableArray alloc] initWithCapacity:1];
         for (id obj in right){
-            Cell *model = obj;
+            TCCell *model = obj;
             CCSprite *next = [sprites objectAtIndex:[objects indexOfObject:model]];
             //get target point and speed
             len = sqrt(((current.x - next.position.x) * (current.x - next.position.x)) + ((current.y - next.position.y) * (current.y - next.position.y)));
@@ -427,7 +382,6 @@ static inline double lerp(double a, double b, double t)
         [leftActions release];
         [rightActions release];
         
-        //self.toBeKilled = nil;
     }
 }
 

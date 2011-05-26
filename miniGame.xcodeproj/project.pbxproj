@@ -123,11 +123,11 @@
 		35CCE924137C244600F80E6B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CCE923137C244600F80E6B /* main.m */; };
 		35CCE927137C244600F80E6B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CCE926137C244600F80E6B /* AppDelegate.m */; };
 		35CCE92A137C244600F80E6B /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CCE929137C244600F80E6B /* RootViewController.m */; };
-		35CCE92D137C244600F80E6B /* HelloWorldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CCE92C137C244600F80E6B /* HelloWorldLayer.m */; };
+		35CCE92D137C244600F80E6B /* TCCollisionLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CCE92C137C244600F80E6B /* TCCollisionLayer.m */; };
 		35CCE959137C83D300F80E6B /* spriteSheet.png in Resources */ = {isa = PBXBuildFile; fileRef = 35CCE958137C83D300F80E6B /* spriteSheet.png */; };
 		35CCE95B137C843700F80E6B /* spriteSheet.plist in Resources */ = {isa = PBXBuildFile; fileRef = 35CCE95A137C843700F80E6B /* spriteSheet.plist */; };
-		35DEEA5D138464340071F5AB /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DEEA5A138464340071F5AB /* Cell.m */; };
-		35DEEA5E138464340071F5AB /* TC_Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DEEA5C138464340071F5AB /* TC_Game.m */; };
+		35DEEA5D138464340071F5AB /* TCCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DEEA5A138464340071F5AB /* TCCell.m */; };
+		35DEEA5E138464340071F5AB /* TCGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DEEA5C138464340071F5AB /* TCGame.m */; };
 		35DEEA67138488CD0071F5AB /* win.png in Resources */ = {isa = PBXBuildFile; fileRef = 35DEEA65138488CD0071F5AB /* win.png */; };
 		35DEEA68138488CD0071F5AB /* lose.png in Resources */ = {isa = PBXBuildFile; fileRef = 35DEEA66138488CD0071F5AB /* lose.png */; };
 /* End PBXBuildFile section */
@@ -367,15 +367,15 @@
 		35CCE926137C244600F80E6B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		35CCE928137C244600F80E6B /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		35CCE929137C244600F80E6B /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
-		35CCE92B137C244600F80E6B /* HelloWorldLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorldLayer.h; sourceTree = "<group>"; };
-		35CCE92C137C244600F80E6B /* HelloWorldLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorldLayer.m; sourceTree = "<group>"; };
+		35CCE92B137C244600F80E6B /* TCCollisionLayer.h */ = {isa = PBXFileReference; path = TCCollisionLayer.h; sourceTree = "<group>"; };
+		35CCE92C137C244600F80E6B /* TCCollisionLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TCCollisionLayer.m; sourceTree = "<group>"; };
 		35CCE92E137C244600F80E6B /* GameConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameConfig.h; sourceTree = "<group>"; };
 		35CCE958137C83D300F80E6B /* spriteSheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spriteSheet.png; sourceTree = "<group>"; };
 		35CCE95A137C843700F80E6B /* spriteSheet.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = spriteSheet.plist; sourceTree = "<group>"; };
-		35DEEA59138464340071F5AB /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
-		35DEEA5A138464340071F5AB /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
-		35DEEA5B138464340071F5AB /* TC_Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TC_Game.h; sourceTree = "<group>"; };
-		35DEEA5C138464340071F5AB /* TC_Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TC_Game.m; sourceTree = "<group>"; };
+		35DEEA59138464340071F5AB /* TCCell.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TCCell.h; sourceTree = "<group>"; };
+		35DEEA5A138464340071F5AB /* TCCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCCell.m; sourceTree = "<group>"; };
+		35DEEA5B138464340071F5AB /* TCGame.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TCGame.h; sourceTree = "<group>"; };
+		35DEEA5C138464340071F5AB /* TCGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGame.m; sourceTree = "<group>"; };
 		35DEEA65138488CD0071F5AB /* win.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = win.png; sourceTree = "<group>"; };
 		35DEEA66138488CD0071F5AB /* lose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lose.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -442,8 +442,8 @@
 				35CCE926137C244600F80E6B /* AppDelegate.m */,
 				35CCE928137C244600F80E6B /* RootViewController.h */,
 				35CCE929137C244600F80E6B /* RootViewController.m */,
-				35CCE92B137C244600F80E6B /* HelloWorldLayer.h */,
-				35CCE92C137C244600F80E6B /* HelloWorldLayer.m */,
+				35CCE92B137C244600F80E6B /* TCCollisionLayer.h */,
+				35CCE92C137C244600F80E6B /* TCCollisionLayer.m */,
 				35CCE92E137C244600F80E6B /* GameConfig.h */,
 				35DEEA58138464340071F5AB /* Model */,
 				35CCE7DB137C244400F80E6B /* Resources */,
@@ -730,10 +730,10 @@
 		35DEEA58138464340071F5AB /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				35DEEA59138464340071F5AB /* Cell.h */,
-				35DEEA5A138464340071F5AB /* Cell.m */,
-				35DEEA5B138464340071F5AB /* TC_Game.h */,
-				35DEEA5C138464340071F5AB /* TC_Game.m */,
+				35DEEA59138464340071F5AB /* TCCell.h */,
+				35DEEA5A138464340071F5AB /* TCCell.m */,
+				35DEEA5B138464340071F5AB /* TCGame.h */,
+				35DEEA5C138464340071F5AB /* TCGame.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -910,9 +910,9 @@
 				35CCE924137C244600F80E6B /* main.m in Sources */,
 				35CCE927137C244600F80E6B /* AppDelegate.m in Sources */,
 				35CCE92A137C244600F80E6B /* RootViewController.m in Sources */,
-				35CCE92D137C244600F80E6B /* HelloWorldLayer.m in Sources */,
-				35DEEA5D138464340071F5AB /* Cell.m in Sources */,
-				35DEEA5E138464340071F5AB /* TC_Game.m in Sources */,
+				35CCE92D137C244600F80E6B /* TCCollisionLayer.m in Sources */,
+				35DEEA5D138464340071F5AB /* TCCell.m in Sources */,
+				35DEEA5E138464340071F5AB /* TCGame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

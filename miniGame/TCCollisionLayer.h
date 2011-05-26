@@ -10,18 +10,17 @@
 // When you import this file, you import all the cocos2d classes
 #import "cocos2d.h"
 
-@class TC_Game;
+@class TCGame;
 
 // HelloWorldLayer
-@interface HelloWorldLayer : CCLayerColor
+@interface TCCollisionLayer : CCLayerColor
 {
     CGPoint singleTapLocation;
     CGPoint chemokineReleaseCoords;
     BOOL chemokinesReleased;
-    //int infected;
     CCLabelBMFont *infectedLabel;
     CCLabelAtlas *totalLabel;
-    TC_Game *game;
+    TCGame *game;
 }
 
 // returns a CCScene that contains the HelloWorldLayer as the only child
@@ -29,7 +28,6 @@
 
 @property (nonatomic, retain) NSMutableArray *sprites;
 @property (nonatomic, retain) NSMutableArray *objects;
-//@property (nonatomic, retain) NSArray *toBeKilled;
 @property (nonatomic, retain) CCSprite *CD8;
 @property (nonatomic, retain) CCSpriteBatchNode *spriteSheet;
 

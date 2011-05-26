@@ -6,10 +6,10 @@
 //  Copyright 2011 University of Chicago. All rights reserved.
 //
 
-#import "Cell.h"
+#import "TCCell.h"
 
 
-@implementation Cell
+@implementation TCCell
 @synthesize infected,emitted,infection_prob,bind_pos,dest_pos,replication_time; //cell_sprite;
 
 
@@ -32,7 +32,7 @@
     
 }
 
-- (float) distance_from_cell: (Cell *) cell
+- (float) distance_from_cell: (TCCell *) cell
 {
     float distance;
     float x = self.bind_pos.x - cell.bind_pos.x;
