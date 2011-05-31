@@ -12,11 +12,12 @@
 #import "CCTouchDispatcher.h"
 #import "TCGame.h"
 #import "TCCell.h"
+#import "SimpleAudioEngine.h"
 
 #define TOUCH_THRESHOLD 20
 #define CELL_RADIUS 21
 #define V 0.2/100
-#define V2 0.5/10
+#define V2 5
 
 #define OFFSET 25
 
@@ -47,6 +48,14 @@ static inline double lerp(double a, double b, double t)
 	
 	// return the scene
 	return scene;
+}
+
+-(CGPoint) getVectorFromPoint:(CGPoint) cur ToPoint:(CGPoint) dst{
+    CGPoint vec;
+    double len = sqrt(((dst.x - cur.x) * (dst.x - cur.x)) + ((dst.y - cur.y) * (dst.y - cur.y)));
+    vec.x = (dst.x - cur.x)/len;
+    vec.y = (dst.y - cur.y)/len;
+    return vec;
 }
 
 -(void)setupSprites
@@ -86,6 +95,10 @@ static inline double lerp(double a, double b, double t)
         //initialize game model
         game = [[TCGame alloc] init];
         
+        //sound setup
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"Bing2.mp3"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"Alert.wav"];
+        
         [self setupSprites];
         chemokinesReleased = NO;
         
@@ -111,6 +124,9 @@ static inline double lerp(double a, double b, double t)
         
         //enable touch
         self.isTouchEnabled = YES;
+        
+        killed = 0;
+        timeBegin = [[NSDate date] timeIntervalSince1970];
 	}
 	return self;
 }
@@ -124,28 +140,67 @@ static inline double lerp(double a, double b, double t)
 {
     if ((game.num_infected == game.num_remaining) || (game.num_infected == 0)){
         self.isTouchEnabled = NO;
-        CCSprite *message;
-        if (game.num_infected == 0){
-            message = [CCSprite spriteWithFile:@"win.png"];
-        }
-        else {
-            message = [CCSprite spriteWithFile:@"lose.png"];
-        }
+        
         CGSize s = [[CCDirector sharedDirector] winSize];
-        message.position = ccp(s.width/2,s.height/2);
-        message.opacity = 0;
-        [self addChild:message];
-        [message runAction:[CCFadeTo actionWithDuration:0.5f opacity:255]];
+        CGPoint center = ccp(s.width/2,s.height/2);
+        
+        int killScore = killed * 10;
+        CCLabelBMFont *killScoreLabel = [CCLabelBMFont labelWithString:[NSString stringWithFormat:@"%i Killed x 10 = %i",killed, killScore] fntFile:@"Times32.fnt"];
+        killScoreLabel.position = ccp(center.x, center.y + 40);
+        killScoreLabel.color = ccBLACK;
+        killScoreLabel.opacity = 0;
+        [self addChild:killScoreLabel];
+        [killScoreLabel runAction:[CCFadeTo actionWithDuration:0.5f opacity:255]];
+        
+        int numSaved = game.num_remaining;
+        int savedScore = numSaved * 15;
+        CCLabelBMFont *savedScoreLabel = [CCLabelBMFont labelWithString:[NSString stringWithFormat:@"%i Saved x 15 = %i", numSaved, savedScore] fntFile:@"Times32.fnt"];
+        savedScoreLabel.position = center;
+        savedScoreLabel.color = ccBLACK;
+        savedScoreLabel.opacity = 0;
+        [self addChild:savedScoreLabel];
+        [savedScoreLabel runAction:[CCFadeTo actionWithDuration:0.5f opacity:255]];
+         
+        double timeElapsed = [[NSDate date] timeIntervalSince1970] - timeBegin;
+        double timeBonus = MAX((60.0 - timeElapsed), 0.0);
+        int timeScore = round(timeBonus * 5);
+        CCLabelBMFont *timeScoreLabel = [CCLabelBMFont labelWithString:[NSString stringWithFormat:@"%.2f Time Bonus x 5 = %i", timeBonus, timeScore] fntFile:@"Times32.fnt"];
+        timeScoreLabel.position = ccp(center.x, center.y - 40);
+        timeScoreLabel.color = ccBLACK;
+        timeScoreLabel.opacity = 0;
+        [self addChild:timeScoreLabel];
+        [timeScoreLabel runAction:[CCFadeTo actionWithDuration:0.5f opacity:255]];
+        
+        int totalScore = killScore + savedScore + timeScore;
+        CCLabelBMFont *totalScoreLabel = [CCLabelBMFont labelWithString:[NSString stringWithFormat:@" TOTAL = %i", totalScore] fntFile:@"Times32.fnt"];
+        totalScoreLabel.position = ccp(center.x, center.y - 80);
+        totalScoreLabel.color = ccRED;
+        totalScoreLabel.opacity = 0;
+        [self addChild:totalScoreLabel];
+        [totalScoreLabel runAction:[CCFadeTo actionWithDuration:0.5f opacity:255]];
+
     }
 }
 
 - (void) nextFrame:(ccTime)dt {
     //cell animations
     //FOR EACH CELL
-        //find vector from current position to dst position
-        //normalize
-        //set constant velocity
+    for (id obj in sprites){
+        CCSprite *spriteCell = obj;
+        TCCell *cellModel = [objects objectAtIndex:[sprites indexOfObject:spriteCell]];
+        
+        //get vector from current position to dst position
+        CGPoint direction = [self getVectorFromPoint:spriteCell.position ToPoint:cellModel.dest_pos];
+        
+        //if not moving, get new dst
+        if (CGPointEqualToPoint(cellModel.dest_pos, ccp(0,0)) || ccpFuzzyEqual(spriteCell.position, cellModel.dest_pos, 0.2)){
+            [cellModel get_new_dest];
+            direction = [self getVectorFromPoint:spriteCell.position ToPoint:cellModel.dest_pos];
+        }
+        
         //update current position
+        spriteCell.position = ccp( spriteCell.position.x + direction.x*V2*dt, spriteCell.position.y + direction.y*V2*dt);
+    }
     //END
     float delta = (float)dt;
     
@@ -198,18 +253,30 @@ static inline double lerp(double a, double b, double t)
             double len = sqrt(((CD8.position.x - current.position.x) * (CD8.position.x - current.position.x)) + ((CD8.position.y - current.position.y) * (CD8.position.y - current.position.y)));
             float time = len * V;
             if (len != 0){
+                float dx = (CD8.position.x - current.position.x)/len;
+                float dy = (CD8.position.y - current.position.y)/len;
                 CGPoint target;
-                target.x = round(current.position.x + (CD8.position.x - current.position.x)*1*CELL_RADIUS/len);
-                target.y = round(current.position.y + (CD8.position.y - current.position.y)*1*CELL_RADIUS/len);
+                target.x = round(current.position.x + dx*1.75*CELL_RADIUS);
+                target.y = round(current.position.y + dy*1.75*CELL_RADIUS);
+                
                 NSMutableArray *actions = [NSMutableArray new];
                 [actions addObject:[CCMoveTo actionWithDuration:time position:target]];
                 if (model.infected){
-                    //if (toBeKilled == nil || ![toBeKilled containsObject:model]){
-                        [actions addObject:[CCCallBlock actionWithBlock:^{
-                            [self performSelector:@selector(induceCellDeath:) withObject:current afterDelay:.1];
-                        }]];
-                    //}
+                    [actions addObject:[CCCallBlock actionWithBlock:^{
+                        //increment user kill count
+                        killed++;
+                        //kill cell
+                        [self performSelector:@selector(induceCellDeath:) withObject:current afterDelay:.1];
+                    }]];
                 }
+                
+                //target2 and time2 are location and duration for kiss-of-death pull back
+                //CGPoint target2;
+                //target2.x = round(current.position.x + 2*dx*CELL_RADIUS);
+                //target2.y = round(current.position.y + 2*dy*CELL_RADIUS);
+                //float time2 = sqrt(dx*dx + dy*dy) * V;
+                //[actions addObject:[CCMoveTo actionWithDuration:time2 position:target2]];
+                
                 [CD8 runAction:[CCSequence actionsWithArray:actions]];
             }
             break;
@@ -246,11 +313,13 @@ static inline double lerp(double a, double b, double t)
         [blinkAnimFrames addObject: [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:[NSString stringWithFormat:@"TCR_RCell.png"]]];
         CCAnimation *blinkAnimation = [CCAnimation animationWithFrames:blinkAnimFrames];
         CCAnimate *blink = [CCAnimate actionWithDuration:0.7f animation:blinkAnimation restoreOriginalFrame:NO];
-        CCAction *fade = [CCFadeTo actionWithDuration:0.5f opacity:0];
         CCSequence *die = [CCSequence actions:
                                                 [CCCallBlock actionWithBlock:^{ [game kill_cell:model]; }],
                                                 blink,
-                                                fade,
+                                                [CCSpawn actions:   [CCScaleTo actionWithDuration:0.5f scale:0], 
+                                                                    [CCFadeTo actionWithDuration:0.5f opacity:0],
+                                                                    [CCCallBlock actionWithBlock:^{ [[SimpleAudioEngine sharedEngine] playEffect:@"Bing2.mp3"]; }], 
+                                                                    nil],
                                                 [CCCallBlock actionWithBlock:^{ [spriteSheet removeChild:cell cleanup:YES];
                                                                                 [sprites removeObject:cell];
                                                                                 [objects removeObject:model];
@@ -377,6 +446,7 @@ static inline double lerp(double a, double b, double t)
         [rightActions addObject:[CCMoveTo actionWithDuration:time position:hLCoords]];
         
         
+        [[SimpleAudioEngine sharedEngine] playEffect:@"Alert.wav"];
         [hLCell runAction:[CCSequence actionsWithArray:leftActions]];
         [hRCell runAction:[CCSequence actionsWithArray:rightActions]];
         [leftActions release];

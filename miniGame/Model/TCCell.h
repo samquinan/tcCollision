@@ -10,7 +10,8 @@
 #import "cocos2d.h"
 #import <math.h>
 
-#define RADIUS 22// just a placeholder value can be changed later
+#define RADIUS 22
+#define MVMNT_RAD 11
 
 
 @interface TCCell : NSObject {
@@ -33,7 +34,7 @@
 // iterate through an array of all cells in the game
 // and 
 
-- (void) cell_motion;
+- (void) get_new_dest;
 
 
 @property (nonatomic) BOOL infected;

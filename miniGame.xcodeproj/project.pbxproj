@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3563295B138312F90057A57B /* Times32.png in Resources */ = {isa = PBXBuildFile; fileRef = 35632959138312F80057A57B /* Times32.png */; };
 		3563295C138312F90057A57B /* Times32.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 3563295A138312F80057A57B /* Times32.fnt */; };
+		35A6938813947C2C0028D87A /* Bing2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 35A6938713947C2C0028D87A /* Bing2.mp3 */; };
+		35A6938B139483230028D87A /* Alert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 35A6938A139483230028D87A /* Alert.wav */; };
 		35CCE7CB137C244300F80E6B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35CCE7CA137C244300F80E6B /* QuartzCore.framework */; };
 		35CCE7CD137C244400F80E6B /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35CCE7CC137C244400F80E6B /* OpenGLES.framework */; };
 		35CCE7CF137C244400F80E6B /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35CCE7CE137C244400F80E6B /* OpenAL.framework */; };
@@ -135,6 +137,8 @@
 /* Begin PBXFileReference section */
 		35632959138312F80057A57B /* Times32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Times32.png; sourceTree = "<group>"; };
 		3563295A138312F80057A57B /* Times32.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Times32.fnt; sourceTree = "<group>"; };
+		35A6938713947C2C0028D87A /* Bing2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Bing2.mp3; sourceTree = "<group>"; };
+		35A6938A139483230028D87A /* Alert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Alert.wav; sourceTree = "<group>"; };
 		35CCE7C6137C244300F80E6B /* miniGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = miniGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35CCE7CA137C244300F80E6B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		35CCE7CC137C244400F80E6B /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -367,14 +371,14 @@
 		35CCE926137C244600F80E6B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		35CCE928137C244600F80E6B /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		35CCE929137C244600F80E6B /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
-		35CCE92B137C244600F80E6B /* TCCollisionLayer.h */ = {isa = PBXFileReference; path = TCCollisionLayer.h; sourceTree = "<group>"; };
+		35CCE92B137C244600F80E6B /* TCCollisionLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TCCollisionLayer.h; sourceTree = "<group>"; };
 		35CCE92C137C244600F80E6B /* TCCollisionLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TCCollisionLayer.m; sourceTree = "<group>"; };
 		35CCE92E137C244600F80E6B /* GameConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameConfig.h; sourceTree = "<group>"; };
 		35CCE958137C83D300F80E6B /* spriteSheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spriteSheet.png; sourceTree = "<group>"; };
 		35CCE95A137C843700F80E6B /* spriteSheet.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = spriteSheet.plist; sourceTree = "<group>"; };
-		35DEEA59138464340071F5AB /* TCCell.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TCCell.h; sourceTree = "<group>"; };
+		35DEEA59138464340071F5AB /* TCCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCCell.h; sourceTree = "<group>"; };
 		35DEEA5A138464340071F5AB /* TCCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCCell.m; sourceTree = "<group>"; };
-		35DEEA5B138464340071F5AB /* TCGame.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TCGame.h; sourceTree = "<group>"; };
+		35DEEA5B138464340071F5AB /* TCGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGame.h; sourceTree = "<group>"; };
 		35DEEA5C138464340071F5AB /* TCGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGame.m; sourceTree = "<group>"; };
 		35DEEA65138488CD0071F5AB /* win.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = win.png; sourceTree = "<group>"; };
 		35DEEA66138488CD0071F5AB /* lose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lose.png; sourceTree = "<group>"; };
@@ -460,6 +464,8 @@
 		35CCE7DB137C244400F80E6B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				35A6938713947C2C0028D87A /* Bing2.mp3 */,
+				35A6938A139483230028D87A /* Alert.wav */,
 				35DEEA65138488CD0071F5AB /* win.png */,
 				35DEEA66138488CD0071F5AB /* lose.png */,
 				35632959138312F80057A57B /* Times32.png */,
@@ -803,6 +809,8 @@
 				3563295C138312F90057A57B /* Times32.fnt in Resources */,
 				35DEEA67138488CD0071F5AB /* win.png in Resources */,
 				35DEEA68138488CD0071F5AB /* lose.png in Resources */,
+				35A6938813947C2C0028D87A /* Bing2.mp3 in Resources */,
+				35A6938B139483230028D87A /* Alert.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

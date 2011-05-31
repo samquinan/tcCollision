@@ -46,10 +46,10 @@
     
 }
 
-- (void) cell_motion
+- (void) get_new_dest
 {
-    float x = self.bind_pos.x + (arc4random()%(2*RADIUS) - RADIUS);
-    float y = self.bind_pos.y + (arc4random()%(2*RADIUS) - RADIUS);
+    float x = self.bind_pos.x + (arc4random() % (2*MVMNT_RAD)) - MVMNT_RAD;
+    float y = self.bind_pos.y + (arc4random() % (2*MVMNT_RAD)) - MVMNT_RAD;
     
     self.dest_pos = ccp(x,y); 
 }

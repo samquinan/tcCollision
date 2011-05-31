@@ -19,12 +19,16 @@
     CGPoint chemokineReleaseCoords;
     BOOL chemokinesReleased;
     CCLabelBMFont *infectedLabel;
-    CCLabelAtlas *totalLabel;
+    CCLabelBMFont *totalLabel;
     TCGame *game;
+    int killed;
+    double timeBegin;
 }
 
 // returns a CCScene that contains the HelloWorldLayer as the only child
 +(CCScene *) scene;
+-(CGPoint) getVectorFromPoint:(CGPoint) cur ToPoint:(CGPoint) dst;
+
 
 @property (nonatomic, retain) NSMutableArray *sprites;
 @property (nonatomic, retain) NSMutableArray *objects;
