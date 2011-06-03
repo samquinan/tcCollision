@@ -16,6 +16,7 @@
 
 - (id) init
 {
+    
     self = [super init];
     if (self) {
     
@@ -39,7 +40,7 @@
     // then check to see whether this is too close to a previously 
     // placed cell
     // if so attempt to place it somewhere else and repeat the process
-    // to make sure it doesn't overlap ...
+    // to make sure cells do not overlap
     
     for (int i = 0; i<NUM_INIT; i++) {
         TCCell *current = [self.cells objectAtIndex:i];
@@ -71,6 +72,7 @@
     while (j < self.num_infected) {
         
         TCCell * current = [self.cells objectAtIndex:arc4random()%self.num_remaining];
+
         
         if ( !(current.infected)) {
             current.infected = YES;
@@ -135,9 +137,11 @@
     for (TCCell *cell_in in near_cells) {
         if (!cell_in.infected) {
             if ( (arc4random()%3) <= cell_in.infection_prob  ) {
+
                 cell_in.infected = YES;
                 cell_in.emitted = NO;
                 cell_in.replication_time = (arc4random()%6+4);
+
                 self.num_infected++;
                 [self.cur_infected addObject:cell_in];
 
@@ -154,11 +158,6 @@
 
 
 // dealloc
-
-
-
-
-
 - (void) dealloc
 {
     [self.cells release];

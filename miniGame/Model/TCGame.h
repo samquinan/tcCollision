@@ -10,13 +10,15 @@
 #import "cocos2d.h"
 #import <math.h>
 #import "TCCell.h"
+#import <stdio.h>
+#import <stdlib.h>
 
-#define NUM_INIT 50 // temp value, can change later
-#define INFECTED_INIT 3 // temp, can add for different levels etc...
+#define NUM_INIT 50 
+#define INFECTED_INIT 3 
 #define X_DIM   480
 #define Y_DIM   320
-#define THRESHOLD 20// temp val
-#define CK_RAD 90 // temp
+#define THRESHOLD 20
+#define CK_RAD 90 
 
 
 @interface TCGame : NSObject {
@@ -38,7 +40,7 @@
 
 
 
-- (NSMutableArray *) cells_near_point: (CGPoint) p; // dist=45
+- (NSMutableArray *) cells_near_point: (CGPoint) p; 
 
 @property (nonatomic, retain) NSMutableArray *cells;
 @property (nonatomic, retain) NSMutableArray *cur_infected;

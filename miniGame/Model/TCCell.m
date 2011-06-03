@@ -26,7 +26,6 @@
     self.dest_pos = ccp(0,0);
     self.replication_time = 0;
     
-    // self.cell_sprite = 
     }
     return self;
     
@@ -41,13 +40,10 @@
     return distance;
 }
 
-- (void) emit_virions:(NSMutableArray *)cells
-{
-    
-}
 
 - (void) get_new_dest
 {
+
     float x = self.bind_pos.x + (arc4random() % (2*MVMNT_RAD)) - MVMNT_RAD;
     float y = self.bind_pos.y + (arc4random() % (2*MVMNT_RAD)) - MVMNT_RAD;
     

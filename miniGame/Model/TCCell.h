@@ -19,20 +19,16 @@
     
     BOOL infected;
     BOOL emitted;
-    int infection_prob; // random number between 0-2
+    int infection_prob; 
     CGPoint bind_pos;
-    CGPoint dest_pos; // rename to dest 
-    float replication_time; // 5 - 15 seconds 
-   // CCSprite *cell_sprite;
-    // possibly need to add a var to tell whether a cell is dead and should not be displayed
+    CGPoint dest_pos; 
+    float replication_time; 
+
     
 }
 -(float) distance_from_cell: (TCCell *) cell;
 // calculate the distance between two cells
 
-- (void) emit_virions: (NSMutableArray *) cells;
-// iterate through an array of all cells in the game
-// and 
 
 - (void) get_new_dest;
 
@@ -43,6 +39,5 @@
 @property (nonatomic) CGPoint bind_pos;
 @property (nonatomic) CGPoint dest_pos;
 @property (nonatomic) float replication_time;
-//@property (nonatomic, retain) CCSprite *cell_sprite;
 
 @end

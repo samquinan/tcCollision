@@ -1,0 +1,146 @@
+TCCell Class Documentation:
+
+The TCCell class is a basic model of a cell for use in TC_Collision
+each cell object keeps tract of whether or not it is infected, its probability
+of becoming infected and its location on screen. Infected cells also keep tract of 
+whether they have emitted virions or not, and a replication timer which counts down
+the time remaining until it will release virions. dest_pos generates a position in
+a small radius of the bin position of the cell to make the game more interesting
+visually if all cells have some motion.
+
+TCCell inherits from NSObject
+
+The header file TCCell.h defines two macros RADIUS and MVMNT_RAD
+which are used to determine the placement of cells and their movements
+in the game
+
+Instance Variables:
+
+infected - a boolean value set to YES if the cell is infected
+
+emitted - a boolean value set to YES if the infected cell has emitted virions
+
+infection_prob - a random number used in the probability model to determine
+				 susceptibility/permissibility of the cell to infection
+				 
+bind_pos - a constant CGPoint defining the placement of the cell in the game
+		   and about which the cell can move during the course of the game
+		   
+dest_pos - a CGPoint giving the next position of the cell, a randomly generated 
+		   CGPoint that is within MVMNT_RAD in both the x and y directions of the
+		   bind point bind_pos
+		   
+replication_time -  a float variable assigned randomly o determing the amount
+					of time before an infected cell will emit virions
+
+
+
+Properties:
+TCCell declares all instance variables as properties in order to allow
+easy access to these variables from the user interface code and the TCGame object.
+
+Instance Methods:
+(id) init
+	init is overloaded to assign default values to instace variables
+	upon a successful call to [super init], BOOL values are set to NO
+	infection_prob is assigned a random integer between 0 and 2 to determine
+	the infection probability for the cell, other values are initialized to 0, and 
+	CGPoints are initialized to (0,0) through a call to ccp(0,0)
+	
+(float) distance_from_cell: (TCCell *) cell
+	implements the distance formula in 2-dimensions to determine the distance 
+	between two cells. Uses each cell's bind position to determine the this 
+	distance.
+	
+(void) get_new_dest
+	randomly generates x and y coordinates using arc4random()  and the cell's
+	bind position to determine the cell's movement within a small radius of its 
+	cind position
+
+(void) dealloc
+	calls [super dealloc]
+
+
+---------------------------------------------------------------------------------
+￼
+TCGame Documentation:
+
+
+TCGame handles the large scale model for TC_Collision keeping tract of the total number
+of cells as well as the number currently infected, and which ones can still infect by
+emitting virions. 
+
+TCGame inherits from NSObject
+
+The header file TCGame.h defines macros
+NUM_INIT : the number of cells to be initialized at the start of the game
+INFECTED_INIT : the number of cells infected at the start of the game
+X_DIM : the length of the x dimension of the iPhone to place cells on screen
+Y_DIM : the length of the y dimension of the iPhone to place cells on screen
+THRESHOLD : The radius of the cell sprites to place them on the screen without overlap
+CK_RAD : A radius about an infected cell used to return the the cells within this radius
+		 of the chosen cell
+		 
+Instance Variables:
+
+cells : a pointer to an NSMutableArray containing all cells in the game at any
+		point in time, if a cell is killed by the player then that cell is removed 
+		from the array
+cur_infected : a pointer to an NSMutableArray containing all the infected cells in
+			   the game at any point in time that are still able to infect other cells.
+num_infected : an int keeping track of the number of infected cells at any point in
+			   time
+num_remaining : an int that tracks the total number of cells in the game at any
+				point in time
+				
+Properties:				
+TCGame declares all instance variables as properties for access from the user inteface
+code.
+				
+Instance Methods:
+
+(id) init
+	init first call [super init] and upon successful return initializes all variables
+	for the game. 
+	Sets num_infected, and num_remaining to INFECTED_INIT, and NUM_INIT respectively
+	and allocates an NSMutableArray for cur_infected, and cells.
+	
+	The cells array is populated with default initializes TCCell objects, which are
+	then assigned bind positions randomly so as not to overlap with one another.
+	
+	A possible not to future implementations is to modify the while loop used 
+	to only loop a fixed number of times, as it will currently assign each cell a
+	random position and then iterate through all previous assigned positions to make sure
+	that none overlap, due to the random call it is a possibility although extremely
+	slight that this could become an infinite loop, however in practice this has
+	never been the case. 
+	
+	After positions are initialized another while loop is used to set INFECTED_INIT
+	number of cells to be infected.
+	
+	
+(void) kill_cell: (TCCell *) cell
+	kill_cell makes sure that the cell argument has not already been removed from
+	the cells array and if not removes it then decrements the num_remaining cell count
+	If the cell happened to be infected the num_infected count is also decremented and 
+	removed from the cur_infected array. The cell object is then released.
+	
+(NSMutableArray *) cells_near_point: (CGPoint) p
+	cells_near_point creates an NSMutableArray of cells, then iterates through the cells
+	array and adds objects from cells to the array near_cells if they are within CK_RAD
+	of the CGPoint p. The array near_cells is set to auto_release before returning that
+	array.
+	
+(void) spread_infection: (TCCell *) cell
+	spread_infection uses the cells_near point method with p == cell.bind_pos to 
+	determine which subset of cells the given cell could possibly infect.
+	This method sets cell.emitted to YES and for each new cell that is infected according
+	to the probability model those cells have their infected instance variable set to YES
+	and emitted variable set to NO, and are assigned a random replication time.
+	These cells are then added to the cur_infected array and num_infected is
+	incremented, and the cell argument is removed from the cur_infected array since in this
+	game a cell can only emit virions once, and then never infect again.
+	
+(void) dealloc
+	dealloc handles releasing the cells and cur_infected arrays, then calls
+	[super dealloc]
